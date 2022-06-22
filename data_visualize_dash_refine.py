@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 from flask import Flask
 
 ##여기에 데이터 프레임 생성
-df = pd.read_csv("capstone_design/Focus_concat.csv")
+df = pd.read_csv("capstone_design/Focus_concat_refine.csv")
 ##서버(Flask), plotly 데이터 지정
 server = Flask(__name__)
 app = Dash(__name__, server = server)
