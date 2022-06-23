@@ -34,7 +34,7 @@ app.layout = html.Div([
             df.columns,
             id = input_id_1)
         ]),
-
+    
     html.Div([
         "Scatter-by.person",
         html.H2("집중한 사람"),
