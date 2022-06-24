@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 from flask import Flask
 
 ##여기에 데이터 프레임 생성
-df = pd.read_csv("capstone_design/Focus_concat_refine.csv")
+df = pd.read_csv("capstone_design/Focus_concat.csv")
 ##서버(Flask), plotly 데이터 지정
 server = Flask(__name__)
 app = Dash(__name__, server = server)
@@ -18,9 +18,15 @@ graph_id_1= 'graph_focus'
 graph_id_2= 'grapf_nofocus'
 graph_id_3= 'graph-scatter_y'
 graph_id_4= 'graph-scatter_N'
+graph_id_5= 'graph-scatter_y_'
+graph_id_6= 'graph-scatter_N_'
+
 
 input_id_1 = 'columns_name'
 input_id_2 = 'columns_name_'
+input_id_3 = 'columns_name_1'
+input_id_4 = 'columns_name_2'
+
 # 색깔 지정가능
 
 app.layout = html.Div([
@@ -44,7 +50,20 @@ app.layout = html.Div([
         dcc.Dropdown(
             df.columns,
             id = input_id_2)
-        ])
+        ]),
+    html.Div([
+        "Scatter-by.person-각 척도별",
+        html.H2("집중한 사람"),
+        dcc.Graph(id=graph_id_5),
+        html.H2("집중하지 않은 사람"),
+        dcc.Graph(id=graph_id_6),
+        dcc.Dropdown(
+            df.columns,
+            id = input_id_3),
+        dcc.Dropdown(
+            df.columns,
+            id = input_id_4)       
+        ])   
 ])
 
     #2. 그래프 input 객체 코어 생성
@@ -76,6 +95,22 @@ def update_figure(input):
 
     fig_1 = px.scatter(filter_df_1, x= "이름",y = input)
     fig_2 = px.scatter(filter_df_2, x="이름",y = input)
+    
+    return fig_1, fig_2
+
+@app.callback(
+    Output(graph_id_5,"figure"),
+    Output(graph_id_6,"figure"),
+    Input(input_id_3,"value"),
+    Input(input_id_4,"value")
+    )  
+
+def update_figure_scatter(input_1,input_2):
+    filter_df_1 = df[df['focus']==1]
+    filter_df_2 = df[df['focus']==0]
+
+    fig_1 = px.scatter(filter_df_1, x= input_1 ,y = input_2)
+    fig_2 = px.scatter(filter_df_2, x=input_1,y = input_2)
     
     return fig_1, fig_2
 
