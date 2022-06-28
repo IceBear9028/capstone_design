@@ -19,6 +19,13 @@ yf_con_df_mp4 = yf_df['이름'].str.replace('.mp4','')
 yf_df['이름'] = yf_con_df_mp4
 
 #%%
+# nf_df 열 이름 교체
+nf_con_df_mp4 = nf_df['이름'].str.replace('.mp4','')
+
+#nf_df 이름에 .mp4 문자열을 없애주는 작업
+nf_df['이름'] = nf_con_df_mp4
+
+#%%
 
 #1. df['이름'] 의 "이름_집중여부(1,0)_구간순서(1~21)" 을 다른 3개의 열로 쪼개는 작업
 yf_df[['이름','focus','구간순서']] = pd.DataFrame(yf_df['이름'].str.split('_',2).tolist())
@@ -42,6 +49,7 @@ concat_df = pd.concat([yf_df, nf_df])
 # +++ '구간순서'의 데이터들이 몇개 있나 확인해보기 위함.
 concat_df_unique = concat_df['구간순서'].unique()
 
+#%%
 #6. 합친 데이터를 '이름'기준의 그룹으로 만들어서 '구간순서'를 숫자형으로 오름차순으로 정렬시킴.
 sorting_df = concat_df.groupby(['이름']).apply(lambda x:x.sort_values(['구간순서'])).reset_index(drop = True)
 ##내림차순정렬시, sort_value(ascending = False) 를 넣어주면 된디.
