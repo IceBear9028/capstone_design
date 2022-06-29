@@ -34,24 +34,38 @@ input_id_5 = 'user_name'
 app.layout = html.Div([
     #1. 그래프 그리는 코어 생성
     html.Div([
-        html.H1("Graph-Box"),
-        dcc.Graph(id=graph_id_1),
-        dcc.Graph(id=graph_id_2),
-        dcc.Dropdown(
-            df.columns,
-            id = input_id_1)
-        ]),
-    
+        html.H1("Box-plot", className = 'headTitle'),
+        html.Div(
+            className="box-plot-graph",
+            children = [
+                dcc.Graph(id = graph_id_1), dcc.Graph(id = graph_id_2)]
+        ),
+        html.Div(
+            className = 'box-plot-input',
+            children = [html.H3("select category", className = "selectTitle"),
+                        dcc.Dropdown(df.columns,id = input_id_1)]
+        )
+    ]),
+
     html.Div([
-        html.H1("Scatter-by.person"),
-        html.H2("집중한 사람"),
-        dcc.Graph(id=graph_id_3),
-        html.H2("집중하지 않은 사람"),
-        dcc.Graph(id=graph_id_4),
-        dcc.Dropdown(
-            df.columns,
-            id = input_id_2)
-        ]),
+        html.H1("Scatter-by.person", className = 'headTitle'),
+        html.Div(
+            className = "scatter-plot",
+            children = [
+                html.H2("집중한 사람", className = "subTitle"),
+                dcc.Graph(id = graph_id_3),
+                html.H2("집중하지 않은 사람", className = "subTitle"),
+                dcc.Graph(id = graph_id_4),
+                html.Div(
+                    className = 'scatter-plot-input',
+                    children = [html.H3("input", className = "selectTitle"),
+                                dcc.Dropdown(df.columns,id = input_id_2)]
+                )
+            ]
+        )
+    ]),
+
+
     html.Div([
         html.H1("Scatter-by.person-각 척도별"),
         html.H2("집중한 사람"),
@@ -73,7 +87,10 @@ app.layout = html.Div([
             df['이름'].unique(),
             id = input_id_5)
         ])
+
 ])
+
+
 
     #2. 그래프 input 객체 코어 생성
 
