@@ -1,0 +1,28 @@
+.main{
+    position : realative;
+}
+.box-plot{
+
+    width:30%;
+    height:1000px;
+
+}
+
+.scatter-plot{
+    width:65%;
+    position : absolute;
+    top : 0%;
+    left : 35%;
+}
+
+.scatter-plot2{
+    position : absolute;
+    width : 100%;
+    top : 140%;
+}
+
+.corr{
+    position : absolute;
+    width : 100%;
+    top : 285%;
+}
